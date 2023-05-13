@@ -13,6 +13,7 @@ import { IoIosArrowUp } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 
 const Sidebar = ({ children }) => {
+  const [visible, setVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -56,7 +57,7 @@ const Sidebar = ({ children }) => {
     {
       name: "Products",
       icon: <BiPackage />,
-      arrowup: <IoIosArrowUp />,
+      arrowup: <IoIosArrowDown />,
 
       subItems: [
         { path: "/products/allproducts", name: "All Products" },
@@ -80,9 +81,9 @@ const Sidebar = ({ children }) => {
   ];
 
   return (
-    <div className="flex p-5 border-r-2 border-gray-300">
+    <div className="flex p-1 md:p-5 relative">
       {isMobile ? (
-        <div className="flex flex-row justify-between gap-20">
+        <div className="flex flex-row justify-between mb-10 w-full px-2 items-center absolute">
            <div
           className="toggle-bar w-10 flex items-center justify-center"
           onClick={toggleSidebar}
@@ -92,8 +93,8 @@ const Sidebar = ({ children }) => {
 
         <div className="user-header flex mt-3">
             <img src={Ellipse21} alt="User Icon" className="w-6 h-6" />
-            <div className="ml-2">Oluwafemi </div>
-          </div>
+            <div className="mr-4">Oluwafemi </div>
+        </div>
 
         </div>
        
@@ -103,14 +104,14 @@ const Sidebar = ({ children }) => {
             isOpen ? "open" : ""
           }`}
         >
-        <div className="top-section flex items-center justify-between px-4 py-3">
+        <div className="top-section flex items-center justify-between px-4 py-3 border-r-1 border-grey-300">
             <div className="logo flex items-center">
               <img src={Subtract} alt="Logo" className="w-8 h-8" />
               <h1 className="text-xl font-bold ml-2">Sellaz</h1>
             </div>
-            <div className="toggle-bar md:hidden" onClick={toggleSidebar}>
+            {/* <div className="toggle-bar md:hidden" onClick={toggleSidebar}>
               {isOpen ? <FaTimes /> : <FaBars />}
-            </div>
+            </div> */}
           </div>
           <div className="menu-items flex-grow mt-5">
             <ul className="space-y-2">
@@ -119,18 +120,25 @@ const Sidebar = ({ children }) => {
                   <NavLink
                     exact
                     to={item.path}
-                    className="flex items-center px-4 py-2 rounded transition-colors duration-300 hover:bg-green-300"
+                    className="flex items-center px-4 py-2 rounded transition-colors duration-300 hover:bg-green-300 hover:text-black-500"
                     activeClassName="bg-green-500"
                   >
                     <div className="mr-2">{item.icon}</div>
                     <div className="flex justify-between gap-14">
                       {item.name}
-                      <div className="pt-1">{item.arrowup} {item.arrowdown}</div>
+                      <div className={`pt-1 ${
+                      item.subItems && visible ? "rotate-180" : ""
+                    }`} onClick={() => {
+                        setVisible(prev => !prev);
+                      }}>{item.arrowup} {item.arrowdown}</div>
                     </div>
                   </NavLink>
-                  {item.subItems && (
+
+                  {/* {item.subItems && ( */}
+
+                  {visible && (
                     <ul className="ml-8 space-y-2">
-                      {item.subItems.map((subItem, subIndex) => (
+                      {item.subItems?.map((subItem, subIndex) => (
                         <li key={subIndex}>
                           <NavLink
                             exact
@@ -144,7 +152,9 @@ const Sidebar = ({ children }) => {
                         </li>
                       ))}
                     </ul>
-                  )}
+                     )}
+                  {/* )} */}
+                 
                 </li>
               ))}
             </ul>
@@ -156,7 +166,7 @@ const Sidebar = ({ children }) => {
         </div>
       )}
 
-      <main className="flex-grow bg-neutral-100 p-4">{children}</main>
+      <main className="flex-grow  p-4">{children}</main>
     </div>
   );
 };
