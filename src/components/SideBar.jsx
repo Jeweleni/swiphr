@@ -81,6 +81,7 @@ const Sidebar = ({ children }) => {
   ];
 
   return (
+    
     <div className="flex p-1 md:p-5 relative">
       {isMobile ? (
         <div className="flex flex-row justify-between mb-10 w-full px-2 items-center absolute">
@@ -104,7 +105,7 @@ const Sidebar = ({ children }) => {
             isOpen ? "open" : ""
           }`}
         >
-        <div className="top-section flex items-center justify-between px-4 py-3 border-r-1 border-grey-300">
+        <div className="top-section flex items-center justify-between px-4 py-3">
             <div className="logo flex items-center">
               <img src={Subtract} alt="Logo" className="w-8 h-8" />
               <h1 className="text-xl font-bold ml-2">Sellaz</h1>
@@ -120,7 +121,7 @@ const Sidebar = ({ children }) => {
                   <NavLink
                     exact
                     to={item.path}
-                    className="flex items-center px-4 py-2 rounded transition-colors duration-300 hover:bg-green-300 hover:text-black-500"
+                    className="flex items-center px-4 py-2 rounded transition-colors duration-300 hover:bg-green-300 hover:text-bold"
                     activeClassName="bg-green-500"
                   >
                     <div className="mr-2">{item.icon}</div>
@@ -143,7 +144,7 @@ const Sidebar = ({ children }) => {
                           <NavLink
                             exact
                             to={subItem.path}
-                            className="flex items-center px-4 py-2 rounded transition-colors duration-300 hover:bg-green-300"
+                            className="flex items-center px-4 py-2 rounded transition-colors hover:bg-green-300 hover:active:bg-green-200"
                             activeClassName="bg-green-500"
                           >
                             <div className="mr-2"></div>
@@ -166,7 +167,7 @@ const Sidebar = ({ children }) => {
         </div>
       )}
 
-      <main className="flex-grow  p-4">{children}</main>
+      <main className="flex-grow p-4 border-grey-500 border-l-2">{children}</main>
     </div>
   );
 };
